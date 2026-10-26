@@ -23,6 +23,12 @@
 - The live ARM64 resolver used about 14.5 MiB after a small set of queries, under
   a 128 MiB container limit. This is a pilot observation, not a load benchmark.
 - ShellCheck, shell syntax and Docker Compose configuration checks passed.
+- Deployed the AMD64 OCI archive as an unprivileged Proxmox application CT with
+  128 MiB RAM, one CPU, DHCP, and automatic startup enabled. Its imported command
+  and Cloudflare TLS environment were verified through the GUI. Live UDP/TCP
+  queries and the readiness endpoint passed; both IPv4 and IPv6 client transport
+  worked. Dual-stack AAAA suppression, complete A answers, IPv6-only answers and
+  the intentional DNSSEC bypass were confirmed on the deployed service.
 
 Site-specific Proxmox addressing is kept outside this repository. Production
 readiness still includes observing actual DNS volume, restart/boot behavior and
