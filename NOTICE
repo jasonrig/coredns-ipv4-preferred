@@ -1,0 +1,8 @@
+CoreDNS IPv4-preferred resolver
+Custom plugin and packaging: Copyright 2026 Jason Rigby.
+Licensed under the Apache License, Version 2.0.
+
+This distribution incorporates CoreDNS (https://github.com/coredns/coredns),
+licensed under the Apache License, Version 2.0, and its Go dependencies.
+The image contains dependency license files under /licenses.
+CoreDNS is the DNS server; the additional plugin supplies only address policy.

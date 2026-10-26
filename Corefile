@@ -1,0 +1,35 @@
+.:1053 {
+    errors
+    health :8080 {
+        lameduck 3s
+    }
+    ready :8181
+    prometheus :9153
+    reload 30s
+
+    prefer_ipv4 {
+        lookup_timeout 500ms
+        max_chain 16
+        max_concurrent 64
+        dnssec bypass
+    }
+    # Cache RAW A/AAAA results. Never add an outer cache around prefer_ipv4.
+    # Zero minimum TTL and no stale serving prevent expired A proof being used.
+    cache 300 {
+        success 4096 300 0
+        denial 1024 60 0
+        servfail 0
+    }
+    loop
+    # IPv4 transport to Cloudflare avoids Route64 egress for DNS itself.
+    forward . {$UPSTREAM_1} {$UPSTREAM_2} {
+        tls_servername {$TLS_SERVER_NAME}
+        policy round_robin
+        health_check 5s
+        read_timeout 2s
+        max_connect_attempts 2
+        max_idle_conns 32
+        max_concurrent 256
+        failfast_all_unhealthy_upstreams
+    }
+}

@@ -1,0 +1,9 @@
+/artifacts/
+/bin/
+/coverage.out
+/deployment.env
+/.env
+*.oci.tar
+*.oci.tar.sha256
+.DS_Store
+/.smoke.*/

@@ -1,0 +1,22 @@
+services:
+  resolver:
+    image: home/coredns-ipv4-preferred:1.0.0
+    build:
+      context: .
+      target: runtime
+    restart: unless-stopped
+    user: "65532:65532"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 128m
+    cpus: 1
+    environment:
+      UPSTREAM_1: ${UPSTREAM_1:-tls://1.1.1.1}
+      UPSTREAM_2: ${UPSTREAM_2:-tls://1.0.0.1}
+      TLS_SERVER_NAME: ${TLS_SERVER_NAME:-one.one.one.one}
+      GOMEMLIMIT: 96MiB
+    ports:
+      - "${DNS_BIND_IP:-127.0.0.1}:${DNS_PORT:-1053}:1053/udp"
+      - "${DNS_BIND_IP:-127.0.0.1}:${DNS_PORT:-1053}:1053/tcp"

@@ -1,0 +1,11 @@
+*
+!go.mod
+!go.sum
+!cmd/**
+!plugin/**
+!internal/**
+!integration/**
+!scripts/licenses.sh
+!Corefile
+!LICENSE
+!NOTICE
